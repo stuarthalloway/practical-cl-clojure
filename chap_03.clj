@@ -75,3 +75,36 @@
 ; usage for artist-selector
 ; (filter (cddb/artist-selector "Dixie Chicks") (cddb/init-db))
 
+; more general (but allows "bad" keys to be specified)
+(defn where [criteria]
+  (fn [cd]
+    (loop [criteria criteria] 
+      (let [[k,v] (first criteria)]
+	(or (not k)
+	    (and (= (k cd) v) (recur (rest criteria))))))))
+
+; in Clojure it is idiomatic for the functional argument to come first
+(defn update [db criteria updates]
+  (map 
+   (fn [cd] 
+     (if (criteria cd)
+       (merge cd updates)
+       cd))
+   db))
+  
+(defmacro backwards [expr] (reverse expr))
+
+; create a var for make-comparison-expr to use (should make this private)
+(def where-cd nil)
+
+; destructuring in anticipation of make-comparisons-list
+(defn make-comparison-expr [[field value]]
+  `(= (~field where-cd) ~value))
+
+(defn make-comparisons-list [criteria]
+  (map make-comparison-expr criteria))
+
+(defmacro where [criteria]
+  `(fn [cd#]
+     (binding [where-cd cd#]
+       (and ~@(make-comparisons-list criteria)))))
