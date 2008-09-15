@@ -1,0 +1,34 @@
+PRACTICAL-CL-CLOJURE
+----------------------
+A port of selected examples from Practical Common Lisp to Clojure.
+The purpose of this port is to explore the intersection between
+Lisp and Clojure's signature features: access to the JVM and a 
+functional programming style base on immutable collections.
+
+
+WHAT YOU SHOULD DO FIRST
+------------------------
+Read Practical Common Lisp. It's great. Buy a copy.
+http://gigamonkeys.com/book/
+
+
+THEN...
+----------------------
+Get yourself some Clojure (http://clojure.org) and take 
+a look at the code in this project.
+
+
+LICENSES
+----------------------
+Practical-cl-clojure is licensed under an MIT license, 
+see LICENSE.
+
+Peter Seibel, the author of Practical Common Lisp, wrote all
+the code that inspired this port. The original is available at
+http://gigamonkeys.com, and I have reproduced that license 
+and copyright in PRACTICAL-CL-LICENSE.
+
+Stuart Halloway
+stu@thinkrelevance.com
+
+

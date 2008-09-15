@@ -9,3 +9,35 @@
 (defn make-rectangle 
   ([width] (make-rectangle width width))
   ([width height] {:width width :height height}))
+
+; not obvious how to get the var-supplied idiom from CL
+(defn which-args-supplied [{:keys [a b c] :as all :or {a 2 b 3}}]
+  (let [c-supplied (contains? all :c)]
+    (list a b c c-supplied)))
+
+; can't write return-from, because defn does not wrap in named entity
+
+; do this instead
+(defn pair-with-product-greater-than [n]
+  (take 1 (for [i (range 10) j (range 10) :when (> (* i j) n)] [i j])))
+
+; using dotimes instead of repeat from cl
+(defn plot [f min max step]
+  (doseq i (range min max step)
+    (dotimes _ (apply f [i]) (print "*"))
+    (println)))
+
+(defn stars [ct]
+  (apply str (take ct (repeat "*"))))
+
+; more idiomatic ?
+(defn plot [f min max step]
+  (doseq i (range min max step)
+    (print (stars (apply f [i])))
+    (println)))
+
+; anonymous function examples
+; (plot (fn [x] (* x 2)) 1 10)
+
+; shorter (like Groovy's 'it')
+; (plot #(* 2 %) 1 10 1)
