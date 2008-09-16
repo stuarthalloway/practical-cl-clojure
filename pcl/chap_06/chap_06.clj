@@ -1,7 +1,7 @@
 (clojure/in-ns 'pcl.chap_06)
 (clojure/refer 'clojure)
-(clojure.contrib.lib/use '(clojure.contrib def))
-(clojure.contrib.lib/use '(clojure.contrib string))
+(clojure.contrib.lib/use 'clojure.contrib.def)
+(clojure.contrib.lib/use 'clojure.contrib.string)
 
 ; closure demo ends up demoing ref/dosync and anon lambda
 (def counter (let [count (ref 0)] #(dosync (alter count inc))))
