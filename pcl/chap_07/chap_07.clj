@@ -1,6 +1,5 @@
 (clojure/in-ns 'pcl.chap_07)
 (clojure/refer 'clojure)
-(clojure.contrib.lib/use 'clojure.contrib.lib)
 
 ; demo unless instead of when, since when is built in already
 (defmacro unless [condition & body]
@@ -27,7 +26,6 @@
   (doseq x (take 5 (repeat 1)) (println x)))
 
 ; fewer parentheses than CL dotimes
-(use 'clojure.contrib.string)
 (defn times-table []
   (dotimes x 10
     (dotimes y 20

@@ -1,9 +1,7 @@
 ; use namespaces
 (clojure/in-ns 'pcl.chap_03)
 (clojure/refer 'clojure)
-(clojure.contrib.lib/use '(clojure.contrib test-is))
-(clojure.contrib.lib/use '(clojure.contrib string))
-(clojure.contrib.lib/use '(clojure.contrib duck-streams))
+(use 'clojure.contrib.duck-streams)
 
 ; struct instead of plist
 (defstruct cd :title :artist :rating :ripped)
