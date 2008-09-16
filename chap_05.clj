@@ -1,9 +1,12 @@
+(in-ns 'pcl.chap_05)
+(clojure/refer 'clojure)
+
 ; use destructuring bind instead of nil
 (defn foo [a b & [c d]]
   (list a b c d))
 
 ; use keys and or directives for optional values
-(defn foo [{:keys [a b] :or {b 10}}] (list a b))
+(defn bar [{:keys [a b] :or {b 10}}] (list a b))
 
 ; couldn't find a way for destructure to refer to other parts
 (defn make-rectangle 
@@ -11,7 +14,7 @@
   ([width height] {:width width :height height}))
 
 ; not obvious how to get the var-supplied idiom from CL
-(defn which-args-supplied [{:keys [a b c] :as all :or {a 2 b 3}}]
+(defn which-args-supplied [{:keys [a b c] :as all :or {c 4}}]
   (let [c-supplied (contains? all :c)]
     (list a b c c-supplied)))
 
@@ -31,7 +34,7 @@
   (apply str (take ct (repeat "*"))))
 
 ; more idiomatic ?
-(defn plot [f min max step]
+(defn plot2 [f min max step]
   (doseq i (range min max step)
     (print (stars (apply f [i])))
     (println)))
