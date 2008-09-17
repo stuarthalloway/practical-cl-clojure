@@ -23,7 +23,7 @@
 (defn demo-doseq []
   (doseq x '(1 2 3) (println x))
   (doseq [_ v] {:fn "John" :ln "Doe"} (println v))
-  (doseq x (take 5 (repeat 1)) (println x)))
+  (doseq x (take 5 (iterate inc 1)) (println x)))
 
 ; fewer parentheses than CL dotimes
 (defn times-table []
