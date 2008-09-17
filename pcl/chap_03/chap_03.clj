@@ -7,10 +7,10 @@
 (defstruct cd :title :artist :rating :ripped)
 
 ; pass db (not mutable data)
-(defn add-records [db & cd] (concat db cd))
+(defn add-records [db & cd] (into db cd))
 
 (defn init-db []
-  (add-records '() 
+  (add-records #{} 
 	      (struct cd "Roses" "Kathy Mattea" 7 true)
 	      (struct cd "Fly" "Dixie Chicks" 8 true)
 	      (struct cd "Home" "Dixie Chicks" 9 true)))
@@ -18,8 +18,8 @@
 ; use two doseqs (String/format not as flexible as CL format)
 ; better way than wrapping cd in (seq cd)?
 (defn dump-db [db]
-  (doseq cd db
-    (doseq [key value] (seq cd) 
+  (doseq rec db
+    (doseq [key value] rec 
       (print (format "%10s: %s\n" (name key) value)))
     (println)))
 
@@ -77,21 +77,26 @@
 ; (filter (cddb/artist-selector "Dixie Chicks") (cddb/init-db))
 
 ; more general (but allows "bad" keys to be specified)
+; simpler with 'every but written this way for demo purposes
 (defn where [criteria]
-  (fn [cd]
+  (fn [m]
     (loop [criteria criteria] 
       (let [[k,v] (first criteria)]
 	(or (not k)
-	    (and (= (k cd) v) (recur (rest criteria))))))))
+	    (and (= (k m) v) (recur (rest criteria))))))))
 
-; in Clojure it is idiomatic for the functional argument to come first
-(defn update [criteria db updates]
-  (map 
-   (fn [cd] 
-     (if (criteria cd)
-       (merge cd updates)
-       cd))
-   db))
+; use a built in seq function 
+(defn simpler-where [criteria]
+  (fn [m]
+    (every? (fn [[k v]] (= (k m) v)) criteria)))
+
+; RH recommends putting db first here for alter/commute purposes
+; into lets us generalize for different collections
+(defn update [db criteria updates]
+  (into (empty db) 
+   (map (fn [m] 
+	  (if (criteria m) (merge m updates) m))
+	db)))
   
 (defmacro backwards [expr] (reverse expr))
 
