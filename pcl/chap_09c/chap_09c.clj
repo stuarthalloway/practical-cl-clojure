@@ -5,7 +5,10 @@
 
 ; using pr-str since using Java format
 (defn report-result [result form]
-  (println (format "%s: %s %s" (if result "pass" "fail") (pr-str *test-name*) (pr-str form)))
+  (println (format "%s: %s %s" 
+		   (if result "pass" "fail") 
+		   (reduce #(format "%s->%s" %1 %2) *test-name*) 
+		   (pr-str form)))
   result)
 
 ; don't need to loop
@@ -22,7 +25,7 @@
 ; using conj to stack tests
 (defmacro deftest [name & forms]
   `(defn ~name []
-     (binding [*test-name* (conj *test-name* (name '~name))]
+     (binding [*test-name* (conj *test-name* (str '~name))]
        ~@forms)))
      
 (deftest test-*
@@ -30,7 +33,13 @@
 	 (= (* 3 3) 9)))
 
 (deftest test-math
+  ; TODO: rest of math
   (test-*))
+
+(deftest test-all-of-nature
+  ; TODO: rest of nature
+  (test-math))
+
 
 ; tests are just functions (deftest is a convenience)
 ; suites are just functions that call a collection of other functions (could write a defsuite convenience)

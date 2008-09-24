@@ -30,6 +30,9 @@
 (use 'clojure.contrib.seq-utils)
 (print-examples (take 5 (concat '(1/4 1/2) powers-of-2)))
 
+(print-examples (every? #(.startsWith % "S") days)
+		(some #(.startsWith % "M") days))
+
 
 
 
