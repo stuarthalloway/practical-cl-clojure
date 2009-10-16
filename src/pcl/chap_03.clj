@@ -58,13 +58,10 @@
 
 ;; probably a simpler, more efficient approach	 
 (defn save-db [db filename]
-  (spit 
-   filename 
-   (pr-str db)))
+  (spit filename (pr-str db)))
 
 (defn load-db [filename] 
-  (with-in-str (slurp filename)
-    (read)))
+  (read-string (slurp filename)))
 
 ; fn literal instead of lambda
 ; :artist key in function position
