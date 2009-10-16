@@ -1,7 +1,5 @@
-; use namespaces
-(clojure/in-ns 'pcl.chap_03)
-(clojure/refer 'clojure)
-(use 'clojure.contrib.duck-streams)
+(ns pcl.chap-03
+  (:use clojure.contrib.duck-streams))
 
 ; struct instead of plist
 (defstruct cd :title :artist :rating :ripped)
@@ -18,8 +16,8 @@
 ; use two doseqs (String/format not as flexible as CL format)
 ; better way than wrapping cd in (seq cd)?
 (defn dump-db [db]
-  (doseq rec db
-    (doseq [key value] rec 
+  (doseq [rec db]
+    (doseq [[key value] rec] 
       (print (format "%10s: %s\n" (name key) value)))
     (println)))
 
@@ -58,11 +56,11 @@
 	 cds
 	 (recur cds))))))
 
-; probably a simpler, more efficient approach	 
+;; probably a simpler, more efficient approach	 
 (defn save-db [db filename]
   (spit 
    filename 
-   (with-out-str (print db))))
+   (pr-str db)))
 
 (defn load-db [filename] 
   (with-in-str (slurp filename)

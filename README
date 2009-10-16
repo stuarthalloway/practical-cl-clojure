@@ -5,18 +5,30 @@ The purpose of this port is to explore the intersection between
 Lisp and Clojure's signature features: access to the JVM and a 
 functional programming style base on immutable collections.
 
-
 WHAT YOU SHOULD DO FIRST
 ------------------------
 Read Practical Common Lisp. It's great. Buy a copy.
 http://gigamonkeys.com/book/
-
 
 THEN...
 ----------------------
 Get yourself some Clojure (http://clojure.org) and take 
 a look at the code in this project.
 
+BEGGING YOUR PARDON...
+----------------------
+I wrote this code before I settled on a test framework that I would
+use for Clojure code. Such testing as there is is minimal, and has
+been added after the fact when dealing with bugs.
+
+For a more representative example of how I think Clojure code should
+be tested, check out http://github.com/stuarthalloway/clj-relevance.
+
+IF THIS WAS FUN...
+----------------------
+You might also enjoy my book, Programming Clojure:
+
+    http://www.pragprog.com/titles/shcloj/programming-clojure
 
 LICENSES
 ----------------------
